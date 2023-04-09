@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Solomon-Coding/socialNetworkAPI/issues"
   },
-  "homepage": "https://github.com/Solomon-Coding/socialNetworkAPI#readme"
+  "homepage": "https://github.com/Solomon-Coding/socialNetworkAPI#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3"
+  }
 }
