@@ -1,5 +1,4 @@
-const { Schema, model } = require('mongoose');
-const reactionSchema = require('./Reaction');
+const { Schema } = require('mongoose');
 
 const reactionSchema = new Schema(
   {
@@ -18,18 +17,13 @@ const reactionSchema = new Schema(
         type: String,
         required: true,
     },
-    createdAt: {
-        type:Date,
-        timestamps: true,
-    }
+    createdAt: Date,
   },
   {
-    toJSON: {
-        getters: true,
-    },
+    versionKey: false
   }
 );
 
-const Reaction = model('Reaction', reactionSchema);
+// const Reaction = model('Reaction', reactionSchema);
 
-module.exports = Reaction;
+module.exports = reactionSchema;
