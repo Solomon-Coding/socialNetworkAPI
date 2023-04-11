@@ -10,7 +10,7 @@ module.exports = {
   // Get a thought
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
-      .select('-__v')
+      // .select('-__v')
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
@@ -30,12 +30,12 @@ module.exports = {
   // Delete a thought
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
-      .then((thought) =>
-        !thought
-          ? res.status(404).json({ message: 'No thought with that ID' })
-          : Reaction.deleteMany({ _id: { $in: thought.reactions } })
-      )
-      .then(() => res.json({ message: 'Thought and reactions deleted!' }))
+      // .then((thought) =>
+      //   !thought
+      //     ? res.status(404).json({ message: 'No thought with that ID' })
+      //     : Reaction.deleteMany({ _id: { $in: thought.reactions } })
+      // )
+      .then(() => res.json({ message: 'Thought deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
   // Update a thought
@@ -52,4 +52,25 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+
+    // Create a reaction
+    createReaction(req, res) {
+      Reaction.create(req.body)
+        .then((reaction) => res.json(reaction))
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json(err);
+        });
+    },
+      // Delete a reaction
+    deleteReactions(req, res) {
+      Thought.findOneAndDelete({ _id: req.params.thoughtId })
+        // .then((thought) =>
+        //   !thought
+        //     ? res.status(404).json({ message: 'No thought with that ID' })
+        //     : Reaction.deleteMany({ _id: { $in: thought.reactions } })
+        // )
+        .then(() => res.json({ message: 'Thought deleted!' }))
+        .catch((err) => res.status(500).json(err));
+    },
 };

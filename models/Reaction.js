@@ -1,12 +1,14 @@
 const { Schema } = require('mongoose');
 
+function niceTime(time) {
+  return new Date(time).toLocaleString();
+  };
+
 const reactionSchema = new Schema(
   {
     reactionId: {
-        type: String,
-        required: true,
-        minLength: 1,
-        maxLength: 280,
+        type: Schema.ObjectId,
+        // default: new ObjectId
     },
     reactionBody: {
         type: String,
@@ -17,13 +19,19 @@ const reactionSchema = new Schema(
         type: String,
         required: true,
     },
-    createdAt: Date,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: niceTime,
+    }
   },
   {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
     versionKey: false
   }
 );
-
-// const Reaction = model('Reaction', reactionSchema);
 
 module.exports = reactionSchema;
