@@ -7,8 +7,8 @@ function niceTime(time) {
 const reactionSchema = new Schema(
   {
     reactionId: {
-        type: Schema.ObjectId,
-        // default: new ObjectId
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
     },
     reactionBody: {
         type: String,
