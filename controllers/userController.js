@@ -1,21 +1,11 @@
 // const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
-// Aggregate function to get the number of users overall
-const headCount = async () =>
-  User.aggregate()
-    .count('userCount')
-    .then((numberOfUsers) => numberOfUsers);
-
 module.exports = {
   // Get all users
   getUsers(req, res) {
     User.find()
       .then(async (users) => {
-        // const userObj = {
-        //   users,
-        //   friends: await headCount(),
-        // };
         return res.json(users);
       })
       .catch((err) => {
