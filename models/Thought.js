@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction');
 
+function niceTime(time) {
+return new Date(time).toLocaleString();
+};
+
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -11,7 +15,8 @@ const thoughtSchema = new Schema(
     },
     createdAt: {
         type: Date,
-        timestamps: true,
+        default: Date.now,
+        get: niceTime,
         required: true,
         unique: true,
         trim: true,
@@ -21,6 +26,12 @@ const thoughtSchema = new Schema(
         required: true,
     },
     reactions: [reactionSchema],
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
   },
   {
     versionKey: false
