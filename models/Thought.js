@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction');
 
+function niceTime(time) {
+return new Date(time).toLocaleString();
+};
+
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -11,10 +15,8 @@ const thoughtSchema = new Schema(
     },
     createdAt: {
         type: Date,
-        timestamps: true,
-        required: true,
-        unique: true,
-        trim: true,
+        default: Date.now(),
+        get: niceTime,
     },
     username: {
         type: String,
@@ -24,10 +26,17 @@ const thoughtSchema = new Schema(
   },
   {
     toJSON: {
-        getters: true,
+      getters: true,
+      virtuals: true,
     },
+    id: false,
+    versionKey: false
   }
 );
+
+thoughtSchema.virtual('reactionCount').get(function(){
+  return this.reactions.length;
+});
 
 const Thought = model('Thought', thoughtSchema);
 

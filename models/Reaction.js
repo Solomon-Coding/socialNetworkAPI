@@ -1,13 +1,13 @@
-const { Schema, model } = require('mongoose');
-const reactionSchema = require('./Reaction');
+const { Schema } = require('mongoose');
+
+function niceTime(time) {
+  return new Date(time).toLocaleString();
+  };
 
 const reactionSchema = new Schema(
   {
     reactionId: {
-        type: String,
-        required: true,
-        minLength: 1,
-        maxLength: 280,
+      type: Schema.Types.ObjectId
     },
     reactionBody: {
         type: String,
@@ -19,17 +19,18 @@ const reactionSchema = new Schema(
         required: true,
     },
     createdAt: {
-        type:Date,
-        timestamps: true,
+      type: Date,
+      default: Date.now,
+      get: niceTime,
     }
   },
   {
     toJSON: {
-        getters: true,
+      getters: true,
     },
+    id: false,
+    versionKey: false
   }
 );
 
-const Reaction = model('Reaction', reactionSchema);
-
-module.exports = Reaction;
+module.exports = reactionSchema;
