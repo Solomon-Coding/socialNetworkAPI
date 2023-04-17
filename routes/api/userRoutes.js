@@ -22,14 +22,15 @@ router
   .get(getSingleUser)
   .delete(deleteUser);
 
-// /api/users/:userId/friends
-router
-  .route('/:userId/friends')
-  .post(addFriend);
+// // /api/users/:userId/friends
+// router
+//   .route('/:userId/friends')
+  
 
 // /api/users/:userId/friends/:friendId
 router
   .route('/:userId/friends/:friendId')
+  .post(addFriend)
   .delete(removeFriend);
 
 module.exports = router;
