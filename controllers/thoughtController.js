@@ -73,9 +73,9 @@ module.exports = {
     deleteReactions(req, res) {
       Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
-        { $pull: {reactions: {reactionId:req.body.reactionId}}},
+        { $pull: {reactions: {reactionId: req.body.reactionId  }}},
         { runValidators: true, new: true })
-        .then(() => res.json({ message: 'Thought deleted!' }))
+        .then(() => res.json({ message: 'Reactions deleted!' }))
         .catch((err) => res.status(500).json(err));
     },
 };
